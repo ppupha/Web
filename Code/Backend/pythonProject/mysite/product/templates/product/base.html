@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+  <title>K-Travel</title>
+
+</head>
+
+<body>
+
+		{% block content %}
+
+		{% endblock %}
+
+
+	<div class="" >
+		<nav class="navbar navbar-inverse navbar-static-top navbar-fixed-top">
+			<div class="container" style="">
+				<div class="navbar-header ">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+		                <span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		            </button>
+		            <a href="{% url 'home:home' %}" class="navbar-brand ">K-Travel</a>
+				</div>
+
+				<div class="navbar-collapse collapse" id="menu">
+			        <ul class="nav navbar-nav navbar-right">
+				        <li class=""><a href="{% url 'product:type' 'All'%}"><span class="glyphicon glyphicon-home" ></span> All</a></li>
+				        <li><a href="{% url 'product:type' 'Sight' %}"><span class="glyphicon glyphicon-home"></span> Sight</a></li>
+				        <li><a href="{% url 'product:type' 'Restauran' %}"><span class="glyphicon glyphicon-home"></span> Restauran</a></li>
+				        <li><a href="{% url 'product:type' 'Museum'%}"><span class="glyphicon glyphicon-home"></span> Museum</a></li>
+				        <li><a href="{% url 'product:contact' %}"><span class="glyphicon glyphicon-user"></span> Contact</a></li>
+				        <li class="dropdown">
+			                <a data-toggle="dropdown" href=""><span class="glyphicon glyphicon-user"></span> Account<span class="caret"></span></a>
+			                <ul class="dropdown-menu">
+								{% if user.is_authenticated %}
+									<li><a href="{% url 'product:profile' %}">Profile</a></li>
+									<li><a href="{% url 'user:password_change' %}">Change Password</a></li>
+									<div class="divider"></div>
+									<li><a href="{%  url 'user:logout' %}">Logout</a></li>
+								{% else %}
+									<li>
+										<a href="{% url 'user:login' %}">Login</a>
+									</li>
+								{% endif %}
+			                </ul>
+			            </li>
+			        </ul>
+			        <form action="{% url 'product:type' 'All' %}" class="navbar-form " method="post" name = 'searchForm'>
+						{% csrf_token %}
+				        <div class="form-group">
+							{{ searchForm.search }}
+				        </div>
+				    </form>
+			    </div>
+
+			</div>
+		</nav>
+	</div>
+
+
+
+	<section class = "footer">
+	<div class = "footer-top">
+
+		<li><a href="https://www.facebook.com/WeiYae"> Liên Hệ</a></li>
+		<li><a href="https://www.facebook.com/WeiYae"> Giới Thiệu</a></li>
+		<li>
+			<a href="" class = "fab fa-facebook-f"></a>
+		</li>
+	</div>
+
+	<div class = "footer-bottom">
+		@NguyenPhuocSang
+	</div>
+</section>
+
+
+
+
+<script type="text/javascript">
+
+	window.onload = function() {
+    }
+	var currentLocation = window.location.href;
+
+	const allImg = document.querySelectorAll("img")
+	allImg.forEach(function(image, index){
+		image.height =  image.width * 11 / 16;
+	})
+
+
+
+
+</script>
+
+</body>
+</html>

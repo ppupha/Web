@@ -1,0 +1,27 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row login_form">
+        <h2 style="width:100%;">Login</h2>
+        <form>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label>Mật Khẩu</label>
+                <input type="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> Ghi Nhớ</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+     

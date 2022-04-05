@@ -1,0 +1,258 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<section class = "product">
+		<div class="container">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li><a href="{% url 'home:home' %}">Home</a></li>
+					{% if place.Type ==  1 %}
+						<li><a href="{% url 'product:type' 'Sight' %}">Sight</a></li>
+					{% else %}
+						{% if place.Type == 2 %}
+							<li><a href="{% url 'product:type' 'Restauran' %}">Restauran</a></li>
+						{% else %}
+							<li><a href="{% url 'product:type' 'Museum' %}">Museum</a></li>
+						{% endif%}
+					{% endif%}
+
+                    <li class="active">{{ place.Name }}</li>
+                </ul>
+            </div>
+
+			<div class="product-content row">
+				<div class="product-content-left row">
+					<div class="product-content-left-big-img">
+						<img src="{{ img5.0.img.url }}">
+
+					</div>
+
+					<div class="product-content-left-small-img">
+						<img src="{{ img5.1.img.url }}">
+						<img src="{{ img5.2.img.url }}">
+						<img src="{{ img5.3.img.url }}">
+						<img src="{{ img5.4.img.url }}">
+					</div>
+				
+				</div>
+
+				<div class="product-content-right">
+					<div class="product-content-right-product-name">
+						<h1>{{ place.Name }}</h1>
+					</div>
+
+					<div class="product-content-right-product-rating">
+						<p>Rating {{ place.Rating }}/5</p>
+					</div>
+
+					<div class="product-content-right-bottom">
+
+						<div class="product-content-right-bottom-container">
+							<ul class="nav nav-tabs">
+								<li><a href="#home" data-toggle="tab"> Description <span ></span></a></li>
+								<li><a href="#lang-nha-bang" data-toggle="tab"> Information</a></li>
+								<li><a href="#lang-nha-bang-2" data-toggle="tab"> Other</a></li>
+								
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane" id="home">{{ place.Description}}</div>
+								<div class="tab-pane" id="lang-nha-bang">
+									<div class = 'place-infor'>Address: {{ place.Adress }}</div>
+									<div class = 'place-infor'>Telephone: {{ place.Tel }}</div>
+									<div class = 'place-infor'>Website: <a href="{{ place.Site }}"> {{ place.Site }}</a></div>
+
+								</div>
+								<div class="tab-pane" id="lang-nha-bang-2"> LANG NHA BANG 2</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class=""></div>
+				</div>
+
+			</div>
+
+			
+		</div>
+		
+	</section>
+
+	<section class="product-related">
+		<div class="container">
+			<div class="product-related-title">
+				<p>Related </p>
+			</div>
+
+			<div class="product-related-content row">
+				{% for product in related %}
+				<div class="product-related-content-item">
+					<a href="{% url 'product:product' product.id %}">
+					<img src="{{product.getFirstImg.img.url}}">
+					<h1>{{ product.Name }}</h1>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+
+		</div>
+		
+	</section>
+
+	<section class="product-comment">
+
+		<div class="container">
+			<div class="">
+			    <div class="comment">
+			        <div class="comment-wrapper">
+			            <div class="panel panel-info">
+
+			                <div class="panel-heading">
+			                    Comment panel
+			                </div>
+			                <div class="panel-body">
+								<form action="{% url 'product:product' place.id %}" class="navbar-form " method="post" name = 'commentForm' novalidate>
+									{% csrf_token %}
+									<div style="display: none">{{ reviewForm.rating }}</div>
+
+									<div class = '' id = 'start-rating'>
+										<span class="fa fa-star checked" id = '1rating'></span>
+										<span class="fa fa-star checked" id = '2rating'></span>
+										<span class="fa fa-star checked" id = '3rating'></span>
+										<span class="fa fa-star checked" id = '4rating'></span>
+										<span class="fa fa-star checked" id = '5rating'></span>
+									</div>
+
+									{{  reviewForm.comment }}
+			                    <br>
+									<input type="submit" class="btn btn-info pull-right" name="submit" value="Post" />
+									</form>
+
+			                    <div class="clearfix"></div>
+			                    <hr>
+
+			                    <ul class="media-list">
+									{% for r in auth %}
+									<li class="media">
+			                            <a href="#" class="pull-left">
+			                                <img src="{{r.0.avatar.url}}" alt="" class="img-circle">
+			                            </a>
+			                            <div class="media-body">
+												<div class="rate pull-right show-rating rating{{r.1.rating}}">
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+												</div>
+			                                <strong class="text-success">@ {{ r.0.user.username }}</strong>
+			                                <p>
+												{{ r.1.comment }}
+			                                </p>
+			                            </div>
+			                        </li>
+									{% endfor %}
+
+			                    </ul>
+			                </div>
+			            </div>
+			        </div>
+
+			    </div>
+			</div>
+		</div>
+		
+	</section>
+
+<script type="text/javascript">
+
+	const handleStarSelect = (par, size) => {
+		const children = par.children;
+		for (let i = 0; i < children.length; i++){
+			if (i <size) {
+				children[i].classList.add("checked");
+			}
+			else {
+				children[i].classList.remove("checked");
+			}
+		}
+	}
+
+	const a = document.getElementsByClassName("show-rating");
+	for (let i = 0; i < a.length; i++)
+	{
+		item = a[i];
+		if (item.classList.contains('rating1'))
+		{
+			handleStarSelect(item, 1);
+		}
+		if (item.classList.contains('rating2'))
+		{
+			handleStarSelect(item, 2);
+		}
+		if (item.classList.contains('rating3')) {
+			handleStarSelect(item, 3);
+		}
+		if (item.classList.contains('rating4')) {
+			handleStarSelect(item, 4);
+		}
+		if (item.classList.contains('rating5')) {
+			handleStarSelect(item, 5);
+		}
+	}
+
+	const handleSelect = (d, selection) => {
+		switch ( selection ) {
+			case '1rating': {
+				handleStarSelect(d, 1);
+				return;
+			}
+			case '2rating': {
+				handleStarSelect(d, 2);
+				return;
+			}
+			case '3rating': {
+				handleStarSelect(d, 3);
+				return;
+			}
+			case '4rating': {
+				handleStarSelect(d, 4);
+				return;
+			}
+			case '5rating': {
+				handleStarSelect(d, 5);
+				return;
+			}
+		}
+	}
+
+
+
+	const d = document.getElementById('start-rating')
+	console.log(d);
+
+	const rate_input = document.getElementById("id_rating");
+	rate_input.value = 5;
+
+	const c = d.children;
+	for (let i = 0; i < c.length; i++){
+		item = c[i];
+		item.addEventListener('click', function (event) {
+			id = event.target.id;
+			handleSelect(d, id);
+			rate_input.value = i+1;
+
+		})
+
+		item.addEventListener('mouseover', function (event) {
+			id = event.target.id;
+			handleSelect(d, id);
+		})
+	}
+
+</script>
+
+{% endblock %}

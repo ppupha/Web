@@ -1,0 +1,7 @@
+behave==1.2.6
+Django==2.2
+factory==1.2
+factory_boy==3.2.1
+requests==2.27.1
+selenium==2.48.0
+webdriver_manager==3.5.2

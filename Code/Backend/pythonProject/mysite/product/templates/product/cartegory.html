@@ -1,0 +1,101 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<section class = "cartegory">
+		
+		<div class="container">
+			<div class="row">
+				<div class = "cartegory-left">
+				</div>
+
+				<div class="row">
+						<ul class="breadcrumb", style="">
+								<li><a href="{% url 'home:home' %}">Home</a></li>
+								{% if title ==  'Sight' %}
+									<li><a href="{% url 'product:type' 'Sight' %}">Sight</a></li>
+								{% else %}
+									{% if title == 'Restauran' %}
+										<li><a href="{% url 'product:type' 'Restauran' %}">Restauran</a></li>
+									{% else %}
+										{% if title == 'Museum' %}
+											<li><a href="{% url 'product:type' 'Museum' %}">Museum</a></li>
+										{% else %}
+											<li><a href="{% url 'product:type' 'All' %}">All</a></li>
+										{% endif %}
+									{% endif%}
+								{% endif%}
+
+							</ul>
+						<div class="cartegory-right-top-item">
+
+						</div>
+						<div class="cartegory-right-top-item">
+							<select id="city-select">
+								<option>City Filter</option>
+								{% for city in allCity %}
+
+								<option value="{{city.Name}}">{{ city.Name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+						<div class="cartegory-right-top-item">
+							<form>
+							<select id = "sort-select" onchange="sortSelectFuntion()">
+								<option value="auto">Sort</option>
+								<option value="rating">Rating</option>
+								<option value="name">Name</option>
+							</select>
+							</form>
+						</div>
+				</div>
+
+					<div class="cartegory-right-content row">
+
+						{% for place in place_list %}
+							<div class="cartegory-right-content-item">
+								<a href="{% url 'product:product' place.id %}">
+								<img src="{{ place.getFirstImg.img.url }}" style="">
+								<h1>{{ place.Name }} ( {{place.Rating}} <span class="fa fa-star checked"></span> )</h1>
+								</a>
+							</div>
+						{% endfor %}
+
+
+
+
+					</div>
+
+
+
+
+
+			</div>
+		</div>
+		
+	</section>
+
+<script type="text/javascript">
+
+document.getElementById("city-select").addEventListener('change', (event) => {
+  	var data = event.target.value;
+	var href = window.location.href.slice(0, -1);
+	href = href.replace("/products/", "/products/abc");
+	href = href+"&Filter="+data+'/';
+	window.location.replace(href);
+	});
+
+document.getElementById("sort-select").addEventListener('change', (event) => {
+  	var data = event.target.value;
+	var href = window.location.href.slice(0, -1);
+	href = href.replace("/products/", "/products/abc");
+	href = href+"&Order="+data+'/';
+	window.location.replace(href);
+	});
+
+</script>
+
+{% endblock %}
+

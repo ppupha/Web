@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+
+  <title>K-Travel</title>
+
+</head>
+
+<body>
+
+	<header>
+		<div class="">
+		<nav class="navbar navbar-inverse navbar-static-top navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header ">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+		                <span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		            </button>
+		            <a href="" class="navbar-brand ">Lang Nha Bảng</a>
+				</div>
+
+				<div class="navbar-collapse collapse" id="menu">
+			        <ul class="nav navbar-nav navbar-right">
+				        <li class="active"><a href=""><span class="glyphicon glyphicon-home"></span> Trang chủ</a></li>
+				        <li><a href=""><span class="glyphicon glyphicon-user"></span> Giới thiệu</a></li>
+				        <li><a href=""><span class="glyphicon glyphicon-user"></span> Tin tức</a></li>
+				        <li><a href=""><span class="glyphicon glyphicon-user"></span> Thương hiệu</a></li>
+				        <li><a href=""><span class="glyphicon glyphicon-user"></span> Liên hệ</a></li>
+				        <li class="dropdown">
+				        	<a href="" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></span> Phim <span class="caret"></span></a>
+				        	<ul class="dropdown-menu">
+				        		<li><a href=""><span class="glyphicon glyphicon-user"></span> Lang Nha Bảng</a></li>
+				        		<li><a href=""><span class="glyphicon glyphicon-user"></span> Phong Khởi Trường Lâm</a></li>
+				        		<li><a href=""><span class="glyphicon glyphicon-user"></span> Lang Nha Bảng 2</a></li>
+				        		<li class="dropdown">
+				        			<a href="" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></span> Lang Nha Bảng 3 <span class="caret"></span></a>
+				        			<ul class="dropdown-menu">
+				        				<li><a href=""><span class="glyphicon glyphicon-user"></span> Mai Trường Tô</a></li>
+				        				<li><a href=""><span class="glyphicon glyphicon-user"></span> Lâm Thù</a></li>
+				        			</ul>
+				        		</li>
+				        	</ul>
+				        </li>
+				        <li class="dropdown">
+			                <a data-toggle="dropdown" href=""><span class="glyphicon glyphicon-user"></span> Tài khoản<span class="caret"></span></a>
+			                <ul class="dropdown-menu">
+			                    <li><a href="#">Thông tin</a></li>
+			                    <li><a href="#">Đổi mật khẩu</a></li>
+			                    <div class="divider"></div>
+			                    <li><a href="#">Thoát</a></li>
+			                </ul>
+			            </li>
+			        </ul>
+			        <form action="" class="navbar-form " method="post">
+				        <div class="form-group">
+				            <input type="text" class="form-control" placeholder="Nhập tìm kiếm">
+				        </div>
+				    </form>
+			    </div>
+
+			</div>
+		</nav>
+	</div>
+	</header>
+
+	<section class = "Slider">
+		<div class = "aspect-ratio-169">
+			<img src="image/img1.jpg">
+			<img src="image/img2.jpg">
+			<img src="image/img3.jpg">
+			<img src="image/img4.jpg">
+	</div>
+
+	<div class = "dot-container">
+		<div class = "dot active"></div>
+		<div class = "dot"></div>
+		<div class = "dot"></div>
+		<div class = "dot"></div>
+		<div class = "dot"></div>
+	</div>
+	</section>
+
+
+	<div class = "footer-top">
+
+		<li><a href=""> Liên Hệ</a></li>
+		<li><a href=""> Giới Thiệu</a></li>
+		<li>
+			<a href="" class = "fab fa-facebook-f"></a>
+		</li>
+	</div>
+
+	<div class = "footer-bottom">
+		@NguyenPhuocSang
+	</div>
+
+
+
+
+<script type="text/javascript">
+	const imgPosition = document.querySelectorAll(".aspect-ratio-169 img");
+	const imgContainer = document.querySelector(".aspect-ratio-169")
+
+	const dotItem = document.querySelectorAll(".dot")
+	let index = 0;
+	imgNumber = imgPosition.length
+
+	imgPosition.forEach(function(image, index){
+		image.style.left = index*100+ "%"
+		dotItem[index].addEventListener("click", function(){
+			slider(index);
+		})
+	})
+
+	function imgSlide(){
+		index++;
+		if (index >= imgNumber) {index = 0;}
+		slider(index);
+		}
+
+	function slider(index){
+		imgContainer.style.left = "-" + index * 100 + "%";
+		const dotActive = document.querySelector(".active");
+		dotActive.classList.remove("active");
+		dotItem[index].classList.add("active");
+	}
+	setInterval(imgSlide, 3000);
+
+</script>
+
+</body>
+</html>
